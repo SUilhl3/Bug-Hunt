@@ -1,29 +1,30 @@
 using UnityEngine;
 using TMPro;
+
 public class Timer : MonoBehaviour
 {
     [SerializeField] TextMeshProUGUI timerText;
     [SerializeField] float limitedTime;
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-        
-    }
 
-    // Update is called once per frame
+    bool timerEnded = false;
+
     void Update()
     {
         if (limitedTime > 0)
         {
             limitedTime -= Time.deltaTime;
         }
-        else
+        else if (!timerEnded)
         {
             limitedTime = 0;
+            timerEnded = true;
+
+            GameManager.Instance.LoseGame(); // trigger lose
         }
-        
+
         int minutes = Mathf.FloorToInt(limitedTime / 60);
         int seconds = Mathf.FloorToInt(limitedTime % 60);
-        timerText.text = string.Format("{00:00} : {1:00}", minutes, seconds);
+
+        timerText.text = string.Format("{0:00} : {1:00}", minutes, seconds);
     }
 }
