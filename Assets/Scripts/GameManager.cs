@@ -21,15 +21,15 @@ public class GameManager : MonoBehaviour
     }
 
     void Start()
-    {
+    { 
         bugsRemaining = totalBugs;
         UpdateObjectiveText();
         resultText.text = "";
     }
-
+    
     void UpdateObjectiveText()
     {
-        objectiveText.text = "Find " + bugsRemaining + " bug(s) before the time runs out";
+        objectiveText.text = "Find " + bugsRemaining + " bugs and place them in the crate in front of the cabin before the time runs out";
     }
 
     public void BugCollected()
