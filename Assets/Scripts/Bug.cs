@@ -4,25 +4,67 @@ using UnityEngine.XR.Interaction.Toolkit.Interactables;
 
 public class Bug : MonoBehaviour
 {
-    XRGrabInteractable grabInteractable;
+    static Bug currentlyHeldBug = null;
+
+    XRGrabInteractable grab;
+    Rigidbody rb;
+
+    [SerializeField] Transform holdPoint;
+
     bool isHeld = false;
 
     void Awake()
     {
-        grabInteractable = GetComponent<XRGrabInteractable>();
+        grab = GetComponent<XRGrabInteractable>();
+        rb = GetComponent<Rigidbody>();
 
-        grabInteractable.selectEntered.AddListener(OnGrab);
-        grabInteractable.selectExited.AddListener(OnRelease);
+        grab.selectEntered.AddListener(OnGrabPressed);
     }
 
-    void OnGrab(SelectEnterEventArgs args)
+    void OnDestroy()
+    {
+        grab.selectEntered.RemoveListener(OnGrabPressed);
+    }
+
+    void OnGrabPressed(SelectEnterEventArgs args)
+    {
+        if (!isHeld && currentlyHeldBug == null)
+        {
+            PickUp();
+        }
+        else if (isHeld)
+        {
+            Drop();
+        }
+    }
+
+    void PickUp()
     {
         isHeld = true;
+        currentlyHeldBug = this;
+
+        rb.isKinematic = true;
+
+        grab.enabled = false;
     }
 
-    void OnRelease(SelectExitEventArgs args)
+    void Drop()
     {
         isHeld = false;
+        currentlyHeldBug = null;
+
+        rb.isKinematic = false;
+
+        grab.enabled = true;
+    }
+
+    void Update()
+    {
+        if (isHeld && holdPoint != null)
+        {
+            transform.position = holdPoint.position;
+            transform.rotation = holdPoint.rotation;
+        }
     }
 
     public bool IsHeld()
