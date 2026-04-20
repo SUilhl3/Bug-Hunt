@@ -11,12 +11,12 @@ public class Timer : MonoBehaviour
 
     void Start()
     {
-        UpdateTimerUI(); // show initial time before game starts
+        UpdateTimerUI(); 
     }
 
     void Update()
     {
-        if (!isRunning) return; //  wait until tutorial starts game
+        if (!isRunning) return; 
 
         if (limitedTime > 0)
         {
@@ -27,7 +27,7 @@ public class Timer : MonoBehaviour
             limitedTime = 0;
             timerEnded = true;
 
-            GameManager.Instance.LoseGame(); // trigger lose
+            GameManager.Instance.LoseGame(); 
         }
 
         UpdateTimerUI();
@@ -41,7 +41,6 @@ public class Timer : MonoBehaviour
         timerText.text = string.Format("{0:00} : {1:00}", minutes, seconds);
     }
 
-    //  Called by TutorialManager when player presses ESC
     public void StartTimer()
     {
         isRunning = true;

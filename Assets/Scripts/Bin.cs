@@ -10,7 +10,7 @@ public class Bin : MonoBehaviour
         {
             GameManager.Instance.BugCollected();
 
-            Destroy(other.gameObject); // remove bug
+            Destroy(other.gameObject);
         }
     }
 }

@@ -11,7 +11,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] TextMeshProUGUI objectiveText;
     [SerializeField] TextMeshProUGUI resultText;
 
-    [SerializeField] Timer timer; // reference to your Timer script
+    [SerializeField] Timer timer; 
 
     bool gameEnded = false;
 
@@ -49,7 +49,7 @@ public class GameManager : MonoBehaviour
     {
         gameEnded = true;
         resultText.text = "YOU WIN!";
-        Time.timeScale = 0f; // pause game
+        Time.timeScale = 0f;
     }
 
     public void LoseGame()

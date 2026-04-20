@@ -10,7 +10,7 @@ public class TutorialManager : MonoBehaviour
 
     void Start()
     {
-        ShowTutorial(); // start with tutorial open
+        ShowTutorial(); 
     }
 
     void Update()
@@ -48,7 +48,6 @@ public class TutorialManager : MonoBehaviour
         tutorialPanel.SetActive(false);
         Time.timeScale = 1f;
 
-        // Start timer only the FIRST time
         if (timer != null)
         {
             timer.StartTimer();
