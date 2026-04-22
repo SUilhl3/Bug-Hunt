@@ -1,5 +1,6 @@
 using UnityEngine;
 using TMPro;
+using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
@@ -10,11 +11,14 @@ public class GameManager : MonoBehaviour
 
     [SerializeField] TextMeshProUGUI objectiveText;
     [SerializeField] TextMeshProUGUI resultText;
-
+    
     [SerializeField] Timer timer; 
 
     bool gameEnded = false;
 
+    [SerializeField] Button restartLevel;
+    [SerializeField] Button mainMenu;
+    [SerializeField] Button nextLevel;
     void Awake()
     {
         Instance = this;
@@ -25,6 +29,11 @@ public class GameManager : MonoBehaviour
         bugsRemaining = totalBugs;
         UpdateObjectiveText();
         resultText.text = "";
+
+        
+        restartLevel.gameObject.SetActive(false);
+        mainMenu.gameObject.SetActive(false);
+        nextLevel.gameObject.SetActive(false);
     }
     
     void UpdateObjectiveText()
@@ -50,6 +59,10 @@ public class GameManager : MonoBehaviour
         gameEnded = true;
         resultText.text = "YOU WIN!";
         Time.timeScale = 0f;
+        
+        restartLevel.gameObject.SetActive(true);
+        mainMenu.gameObject.SetActive(true);
+        nextLevel.gameObject.SetActive(true);
     }
 
     public void LoseGame()
@@ -59,5 +72,9 @@ public class GameManager : MonoBehaviour
         gameEnded = true;
         resultText.text = "YOU LOSE!";
         Time.timeScale = 0f;
+
+        
+        restartLevel.gameObject.SetActive(true);
+        mainMenu.gameObject.SetActive(true);
     }
 }

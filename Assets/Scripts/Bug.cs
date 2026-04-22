@@ -10,6 +10,8 @@ public class Bug : MonoBehaviour
     Rigidbody rb;
 
     [SerializeField] Transform holdPoint;
+    [SerializeField] AudioClip collectSound;
+    [SerializeField] AudioSource collectSource;
 
     bool isHeld = false;
 
@@ -17,6 +19,7 @@ public class Bug : MonoBehaviour
     {
         grab = GetComponent<XRGrabInteractable>();
         rb = GetComponent<Rigidbody>();
+        collectSource = GetComponent<AudioSource>();
 
         grab.selectEntered.AddListener(OnGrabPressed);
     }
@@ -42,6 +45,8 @@ public class Bug : MonoBehaviour
     {
         isHeld = true;
         currentlyHeldBug = this;
+
+        collectSource.PlayOneShot(collectSound);
 
         rb.isKinematic = true;
 
